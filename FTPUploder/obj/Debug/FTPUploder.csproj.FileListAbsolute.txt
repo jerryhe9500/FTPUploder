@@ -1,0 +1,1 @@
+c:\users\jerry\documents\visual studio 2013\Projects\FTPUploder\FTPUploder\bin\Debug\FTPUploder.exe.config
