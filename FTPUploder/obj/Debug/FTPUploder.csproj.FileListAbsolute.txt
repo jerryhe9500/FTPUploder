@@ -1,1 +1,9 @@
 c:\users\jerry\documents\visual studio 2013\Projects\FTPUploder\FTPUploder\bin\Debug\FTPUploder.exe.config
+C:\Users\jerry\Documents\Visual Studio 2013\Projects\FTPUploder\FTPUploder\bin\Debug\FTPUploder.exe
+C:\Users\jerry\Documents\Visual Studio 2013\Projects\FTPUploder\FTPUploder\bin\Debug\FTPUploder.pdb
+C:\Users\jerry\Documents\Visual Studio 2013\Projects\FTPUploder\FTPUploder\obj\Debug\FTPUploder.csprojResolveAssemblyReference.cache
+C:\Users\jerry\Documents\Visual Studio 2013\Projects\FTPUploder\FTPUploder\obj\Debug\FTPUploder.MainForm.resources
+C:\Users\jerry\Documents\Visual Studio 2013\Projects\FTPUploder\FTPUploder\obj\Debug\FTPUploder.Properties.Resources.resources
+C:\Users\jerry\Documents\Visual Studio 2013\Projects\FTPUploder\FTPUploder\obj\Debug\FTPUploder.csproj.GenerateResource.Cache
+C:\Users\jerry\Documents\Visual Studio 2013\Projects\FTPUploder\FTPUploder\obj\Debug\FTPUploder.exe
+C:\Users\jerry\Documents\Visual Studio 2013\Projects\FTPUploder\FTPUploder\obj\Debug\FTPUploder.pdb
