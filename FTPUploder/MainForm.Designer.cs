@@ -47,9 +47,10 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.listBox1);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "FTPUploader";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
-            
+
         }
 
         #endregion
