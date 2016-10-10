@@ -7,19 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.IO;
 using Microsoft.VisualBasic.FileIO;
+using SharpConfig;
 
-namespace FTPUploder
+namespace FTPUploader
 {
     public partial class MainForm : Form
     {
+        private Config config = new Config();
+
         public MainForm()
         {
             InitializeComponent();
+            config.LoadFromConfig();
         }
 
         private void OpenFileButton_Click(object sender, EventArgs e)
         {
+            /*
             //Choose a sourcee file
             do
             {
@@ -41,6 +48,45 @@ namespace FTPUploder
                     }
                 }
             } while (sourceFile == null);
+            */
+            
+            
+            // Get the object used to communicate with the server.
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://202.121.127.206");
+            
+            request.Method = WebRequestMethods.Ftp.UploadFile;
+
+            // This example assumes the FTP site uses anonymous logon.
+            request.Credentials = new NetworkCredential ("root","ct7rTqinJNBKikme");
+
+            // Copy the contents of the file to the request stream.
+            StreamReader sourceStream = new StreamReader(sourceFile);
+            byte [] fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
+            sourceStream.Close();
+            request.ContentLength = fileContents.Length;
+            MessageBox.Show("Length:" + fileContents.Length);
+
+            try
+            {
+                Stream requestStream = request.GetRequestStream();
+                requestStream.Write(fileContents, 0, fileContents.Length);
+                requestStream.Close();
+
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+
+                //Console.WriteLine("Upload File Complete, status {0}", response.StatusDescription);
+                MessageBox.Show("Upload File Complete, status " + response.StatusDescription);
+                response.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+
+            
+
+            /*
             //Choose a destination path
             do
             {
@@ -67,6 +113,7 @@ namespace FTPUploder
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+            */
         }
     }
 }

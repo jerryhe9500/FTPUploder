@@ -1,4 +1,4 @@
-﻿namespace FTPUploder
+﻿namespace FTPUploader
 {
     partial class MainForm
     {

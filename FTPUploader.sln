@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTPUploder", "FTPUploder\FTPUploder.csproj", "{85D11FBD-BBA7-46DA-B863-21B9C0B65A6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTPUploader", "FTPUploder\FTPUploader.csproj", "{85D11FBD-BBA7-46DA-B863-21B9C0B65A6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
