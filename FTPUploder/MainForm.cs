@@ -11,109 +11,60 @@ using System.Net;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
 using SharpConfig;
+using System.Collections.Generic;
 
 namespace FTPUploader
 {
     public partial class MainForm : Form
     {
         private Config config = new Config();
+        private FTPUpload ftp = null;
+
+        private List<string> listFile = new List<string>();
 
         public MainForm()
         {
             InitializeComponent();
+
+            //Load from a config file.
             config.LoadFromConfig();
+
+            //Init FTP class.
+            ftp = new FTPUpload(config.URL, config.username, config.password);
+            
+            //Go through the directory and show every file in a listBox.
+            DirectoryInfo dir = new DirectoryInfo(config.path);
+            GetFileList(dir);
+
+            //Start Upload after the form loaded.
+            Shown += MainForm_Shown;
         }
 
-        private void OpenFileButton_Click(object sender, EventArgs e)
+        private void MainForm_Shown(Object sender, EventArgs e)
         {
-            /*
-            //Choose a sourcee file
-            do
+            foreach (string localFile in listFile)
             {
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        if (openFileDialog.OpenFile() != null)
-                        {
-                            fileName = openFileDialog.SafeFileName;
-                            sourceFile = openFileDialog.FileName;
-                            saveFileDialog.FileName = fileName;
-                            MessageBox.Show("source:" + sourceFile);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                    }
-                }
-            } while (sourceFile == null);
-            */
-            
-            
-            // Get the object used to communicate with the server.
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://202.121.127.206");
-            
-            request.Method = WebRequestMethods.Ftp.UploadFile;
-
-            // This example assumes the FTP site uses anonymous logon.
-            request.Credentials = new NetworkCredential ("root","ct7rTqinJNBKikme");
-
-            // Copy the contents of the file to the request stream.
-            StreamReader sourceStream = new StreamReader(sourceFile);
-            byte [] fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
-            sourceStream.Close();
-            request.ContentLength = fileContents.Length;
-            MessageBox.Show("Length:" + fileContents.Length);
-
-            try
-            {
-                Stream requestStream = request.GetRequestStream();
-                requestStream.Write(fileContents, 0, fileContents.Length);
-                requestStream.Close();
-
-                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-
-                //Console.WriteLine("Upload File Complete, status {0}", response.StatusDescription);
-                MessageBox.Show("Upload File Complete, status " + response.StatusDescription);
-                response.Close();
+                ftp.Upload(Path.GetFileName(localFile), localFile);
             }
-            catch (Exception ex)
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GetFileList(DirectoryInfo diroot)
+        {
+            foreach (FileInfo fileName in diroot.GetFiles())
             {
-                MessageBox.Show("Error: " + ex.Message);
+                listFile.Add(fileName.FullName);
+                listBox1.Items.Add(fileName.Name);
             }
 
-
-            
-
-            /*
-            //Choose a destination path
-            do
+            foreach (DirectoryInfo dirSub in diroot.GetDirectories())
             {
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        destFile = saveFileDialog.FileName;
-                        MessageBox.Show("destination:" + destFile);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: Could not save file to disk. Original error: " + ex.Message);
-                    }
-                }
-            } while (destFile == null);
-
-            //Provide a standard dialog box that shows progress on file operations in Windows
-            try
-            {
-                FileSystem.CopyFile(sourceFile, destFile, UIOption.AllDialogs);
+                GetFileList(dirSub);
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-            */
         }
     }
 }

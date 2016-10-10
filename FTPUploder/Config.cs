@@ -34,5 +34,19 @@ namespace FTPUploader
             password = ftpSection["password"].StringValue;
         }
 
+        /*
+         * Example Config File
+         * 
+         * [Local]
+         * Path = 
+         * 
+         * [FTP]
+         * URL = ftp://
+         * username = 
+         * password = 
+         * 
+         * //The URL in FTP must be contained with "ftp://"
+         * 
+        */
     }
 }
